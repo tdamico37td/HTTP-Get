@@ -40,7 +40,7 @@
               <h5 class="card-title">Hello, this is Otto!</h5>
               <p class="card-text">Otto is an 11-year-old boy living in Ocean Shores. He is a skilled, prodigious and highly competitive athlete who has won numerous competitions in skateboarding, surfing and snowboarding. He's also very handy with a bicycle, with rollerblades, and is captain of the youth league street hockey team with Reggie, Sam, and Twister.</p>
               <div id="addition-info"></div>
-              <button type="button" class="btn btn-primary" id="moreInfo">Learn More</button>
+              <button type="button" class="btn btn-primary" id="moreInfo">Learn More About Otto</button>
             </div>
           </div>
         </div>
@@ -53,47 +53,36 @@
             document.querySelector('.card-body').removeChild(document.querySelector('#moreInfo'))
             createLoaderHTML()
             fetch('https://b31c4cbf-8d94-4334-9889-902d29969857.trayapp.io')
-            // convert to JSON below
             .then(response => response.json())
             .then(data => {
-                 console.log(data)
                  displayInfo(data)
             });
 
         }
-
-    
-    // display the data in a nice formatted way inside your #addition-info div
-        // the display infostep should be a seperate function that you call on inside the response of the fetch request
-        // pass the data from the fetch request to the display info function are a param
-       
+   
         function displayInfo(data){
-             // the display infofunction is a helper function that calls on 2 other function 
-            // the create more info html functio
-
-            // call the createMoreInfoHTML function pass the data from display info function to this function
-
-            // calls the hide loader function
+            createMoreInfoHTML(data)
             hideLoader()
-          
         }
        
         function createMoreInfoHTML(data){
-             // this function has a single param that is passed in by the display info funtion. this data is the response from Tray "API"
-            // this function will create the html elements and display them on the page
-                // create a variable that is an array of all info you are going to recieve from Tray
-            // this list will contain objects with two keys one for the field that you create in Tray and the other key is the lable you want to display in you HTML before the value like - First Name: 
-                // example:
-                // let info = [{field: 'age', label: 'Age:'}, {field: 'race', label: 'Race:'}, {field: 'orignal_name', label: 'Actual Name:'}, {field: 'name_meaning', label: 'The meaning of Gandalf:'}, {field: 'powers', label: 'Powers:'}]
-            // loop over you list with either a for loop or a forEach loop!
-                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-            // for each object in the list
-            // create a p element and store it to a variable
-            // then add text to the elemt with .innerHTML 
-            // the text should be the lable from the info ojects lable key and the value of the data at the object key!! this is tricky
-            // finally append the element to the #addition-info div
+            let info = [
+                    {
+                        field: "birthday", label:"Birthday:"
+                    },
+                    {
+                        field: "address", label:"Address:"
+                    },
+                    {
+                        field: "social", label:"Social Security Number:"
+                    }
+                ]
 
-            //  ** if the loop is two hard you can hard code a p tag for each value you create in the workflow response 
+            info.forEach(o => {
+                let p = document.createElement('p')
+                p.innerHTML = `${o.label} ${data[o.field]}`
+                document.querySelector('#addition-info').appendChild(p)
+            })
 
         }
 
