@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <!-- the line below is important if you want your site to be mobile friendly -->
     <!-- Viewport meta tag -->
-    <title>Fetch Example Hey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Example</title>
     <!-- Bootstrap CSS -->
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- INLINE CUSTOME STYLE -->
-    <!-- you can write all you style but I only used this to style the loading screen -->
+    <!-- you can write all you style but I only used this to style the loading screen / loader style below--> //
     <style>
         body {
             position: relative;
@@ -29,39 +30,39 @@
     </style>
   </head>
   <body>
-      <!-- create a boostrap container that has centered content and margin on the top  -->
-      <!-- https://getbootstrap.com/docs/4.5/layout/utilities-for-layout/#margin-and-padding -->
-
-
-        <!-- Inside your container create a bootstap jumbo trop that only takes up 8 column on larg screens and 12 columns on small screens -->
-        <!-- https://getbootstrap.com/docs/4.5/components/jumbotron/ -->
-        <!-- https://getbootstrap.com/docs/4.5/layout/grid/#grid-options -->
-
-            <!-- Add a header and a subheader -->
-          
-            <!-- create a boostrap card -->
-            <!-- https://getbootstrap.com/docs/4.5/components/card/ -->
-            <!-- add your own image src -->
-            <!-- title and card text -->
-            <!-- under the card text p tag create a more info div give it an id of  addition-info -->
-            <!-- remove the a href tag and add a boostrap button with out a type and give it an id of moreInfo -->
-  
+      <div class="container mt-5" align="center">
+          <div class="jumbotron col-lg-8 col-sm-12">
+          <h1>HTTP GET REQUEST EXAMPLE</h1>
+          <h3><i>With Fetch</i></h3>
+          <div class="card" style="width: 18rem;">
+            <img src="https://vignette.wikia.nocookie.net/nickelodeon/images/0/00/Otto_Rocket.png/revision/latest/top-crop/width/360/height/360?cb=20160403064600" class="card-img-top" alt="Otto">
+            <div class="card-body">
+              <h5 class="card-title">Hello, this is Otto!</h5>
+              <p class="card-text">Otto is an 11-year-old boy living in Ocean Shores. He is a skilled, prodigious and highly competitive athlete who has won numerous competitions in skateboarding, surfing and snowboarding. He's also very handy with a bicycle, with rollerblades, and is captain of the youth league street hockey team with Reggie, Sam, and Twister.</p>
+              <div id="addition-info"></div>
+              <button type="button" class="btn btn-primary" id="moreInfo">Learn More</button>
+            </div>
+          </div>
+        </div>
+      </div>
   
     <script> 
-    // onclick of the #moreInfo button 
-    // create an onclick function
 
-    // remove the #moreInfo from the page
-             // We dont want the user to double click the button and cause displaying issues
+        document.querySelector('#moreInfo').onclick = event => {
 
-    // display a loading overlay
-        // the loading overlay step should be a seperate function that you call on inside the click event
-        // this function is already created for you
+            document.querySelector('.card-body').removeChild(document.querySelector('#moreInfo'))
+            createLoaderHTML()
+            fetch('https://b31c4cbf-8d94-4334-9889-902d29969857.trayapp.io')
+            // convert to JSON below
+            .then(response => response.json())
+            .then(data => {
+                 console.log(data)
+                 displayInfo(data)
+            });
 
-    // Then use fetch to make a GET request to your workflow URL (* See notes on creating your workflow)
-    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        }
+
     
-    // console.log() your data after is parsed
     // display the data in a nice formatted way inside your #addition-info div
         // the display infostep should be a seperate function that you call on inside the response of the fetch request
         // pass the data from the fetch request to the display info function are a param
